@@ -1,0 +1,23 @@
+<!--
+Add security domain to the JBosss AS standalone.xml:
+
+<security-domain name="xacml-demo" cache-type="default">
+	<authentication>
+		<login-module code="UsersRoles" flag="required"/>
+	</authentication>
+	<authorization>
+		<policy-module code="org.jboss.test.xacml.CustomXACMLAuthorizationModule" flag="required"/>
+	</authorization>
+</security-domain>
+
+or use CLI (jboss-cli.sh):
+
+connect
+/subsystem=security/security-domain=xacml-demo:add(cache-type=default)
+/subsystem=security/security-domain=xacml-demo/authentication=classic:add(login-modules=[{"code"=>"UsersRoles", "flag"=>"required"}]) {allow-resource-service-restart=true}
+/subsystem=security/security-domain=xacml-demo/authorization=classic:add(policy-modules=[{"code"=>"org.jboss.test.xacml.CustomXACMLAuthorizationModule", "flag"=>"required"}]) {allow-resource-service-restart=true}
+-->
+<jboss-web>
+	<security-domain>xacml-demo</security-domain>
+	<use-jboss-authorization>true</use-jboss-authorization>
+</jboss-web>
